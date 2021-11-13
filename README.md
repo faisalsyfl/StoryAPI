@@ -1,43 +1,120 @@
 # Story API 
-There are several ways for making some API to use collaboratively with FrontEnd Technology. Here are the tools that can use for generating API.
-- [Postman](https://www.postman.com/) 
+---
+
+## Overview
+> StoryAPI is Express.js simple REST API using `clean architecture` code design.
+
+- Routes mapping via [express-routes-mapper](https://github.com/aichbauer/express-routes-mapper)
+- Support for [sqlite](https://www.sqlite.org/)
+- Environments for `development` only
+- Built with [npm scripts](#npm-scripts)
+- Example with data from [HackerNews/API](https://github.com/HackerNews/API)
+
+## Prerequisites 
+- [Node.js](https://nodejs.org/en/)
+- [Postman](https://www.postman.com/downloads) 
 - [Visual Studio Code](https://code.visualstudio.com)
 
-### Postman Guide
-[![N|Solid](https://seeklogo.com/images/P/postman-logo-5110850F84-seeklogo.com.png)](https://nodesource.com/products/nsolid)
-Postman is the collaboration platform for API development. Postman enables you to write API test cases in any format of your choice (JSON/XML/many more) and run them to verify and validate our API. 
+## Installation
+Start by cloning this repository
 
-#### Resources
-- [Download Postman](https://www.postman.com/downloads/) 
-- [Postman Release Notes](https://www.postman.com/downloads/release-notes) 
-- [Postman Integrations](https://www.postman.com/integrations/) 
-- [The Postman API](https://www.postman.com/postman/workspace/postman-public-workspace/documentation/12959542-c8142d51-e97c-46b6-bd77-52bb66712c9a/) 
+```sh
+# HTTPS
+$ git clone https://github.com/faisalsyfl/StoryAPI.git
+```
 
-### Visual Studio Guide
-The Visual Studio Code team uses the Insiders version to test the latest features and bug fixes of VS Code. You can use this same version by [downloading here](https://code.visualstudio.com/insiders).
+then
 
-#### Getting Started
-Open the Welcome page to get started with the basics of VS Code. **Help > Welcome**
+```sh
+# cd into project root
+$ npm i
+# copy .env.example to .env
+$ cp .env.example .env
+# simply, start the development server
+$ npm run dev
+```
 
-#### Command Palette
+## Usage
+- `/api/v1/fetchSources`
 
-Access all available commands based on your current context.
+```javascript
+# HackerNews Source Top Stories
+[ 29210352, 29210704, 29209455, ...]
+```
+```javascript
+{
+    "msg": "Success fetch topstories.json into database"
+}
+```
+- `/api/v1/fetchStories`
 
-> Mac: `cmd+shift+p` or `f1`
-> Windows / Linux: `ctrl+shift+p` or `f1`
+```javascript
+# HackerNews Source Stories :id
+{
+  "by" : "dhouston",
+  "descendants" : 71,
+  "id" : 8863,
+  "kids" : [ 9224, 8917, 8952, 8958, 8884, 8887, 8869, 8940, 8908, 9005, 8873, 9671, 9067, 9055, 8865, 8881, 8872, 8955, 10403, 8903, 8928, 9125, 8998, 8901, 8902, 8907, 8894, 8870, 8878, 8980, 8934, 8943, 8876 ],
+  "score" : 104,
+  "time" : 1175714200,
+  "title" : "My YC app: Dropbox - Throw away your USB drive",
+  "type" : "story",
+  "url" : "http://www.getdropbox.com/u/2/screencast.html"
+}
+```
+```javascript
+{
+    "msg": "Sucessfully added 500row."
+}
+```
 
-#### Customization
-There are many things you can do to customize VS Code.
+- `/api/v1/topstories`
 
-- Change your theme
-- Change your keyboard shortcuts
-- Tune your settings
-- Add JSON validation
-- Create snippets
-- Install extensions
+```javascript
+[29210352,29210704,29209455,29210189,29208518,29209353,29210125,29210494,29198951,29209415]
+```
+- `/api/v1/story/:id`
 
-Check out the full [documentation](https://code.visualstudio.com/docs/getstarted/settings).
+```javascript
+{
+    "id": 29198951,
+    "by": "nz",
+    "descendants": 0,
+    "type": "story",
+    "time": 1636722908,
+    "kids": null,
+    "url": "https://gist.github.com/jm3/6724931",
+    "score": 13,
+    "title": "Gin, television, and social surplus, or, “looking for the mouse”"
+}
+```
+- POST `api/v1/story/:id/favorite`
 
+```javascript
+{
+    "msg": "Sucesssfully change Gin, television, and social surplus, or, “looking for the mouse” favorite."
+}
+```
 
+-  `api/v1/story?isFavorite=1`
+
+```javascript
+[
+    {
+        "id": 29198951,
+        "by": "nz",
+        "descendants": 0,
+        "kids": null,
+        "score": 13,
+        "time": 1636722908,
+        "title": "Gin, television, and social surplus, or, “looking for the mouse”",
+        "type": "story",
+        "url": "https://gist.github.com/jm3/6724931",
+        "isFavorite": 1,
+        "createdAt": "2021-11-13T16:50:36.316Z",
+        "updatedAt": "2021-11-13T16:50:58.140Z"
+    }
+]
+```
 
 
