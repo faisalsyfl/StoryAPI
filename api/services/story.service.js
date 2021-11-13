@@ -12,12 +12,8 @@ const storyService = () => {
       const response = await axios.get(hacker_url+'/topstories.json');
       if(response.data){
         const truncate = await topStoryRepo.truncate();
-        var count = 0;
         for(value of response.data){
-          if(count < 10){
-            const repo = await topStoryRepo.store({id:value});
-          }
-          count++;
+          const repo = await topStoryRepo.store({id:value});
         }
       }
       return true;
