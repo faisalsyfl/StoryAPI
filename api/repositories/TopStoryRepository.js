@@ -6,29 +6,37 @@ const secret = process.env.NODE_ENV === 'production' ? process.env.JWT_SECRET : 
 const TopStoryRepository = () => {
 
   const store = async (data) => {
-    try{
+    try {
       const topstory = await TopStory.create(data);
       return topstory;
-    }catch(err){
-      throw(err);
+    } catch (err) {
+      throw (err);
     }
   }
 
-  const index = async () => {
-    try{
-      const topstories = await TopStory.findAll({attributes: ['id']});
+  const index = async (limit, offset) => {
+    try {
+      const topstories = await TopStory.findAll({
+        attributes: ['id'],
+        offset: ((offset - 1) * limit),
+        limit: limit,
+        order: [
+          ['id', 'ASC']
+        ],
+        subQuery: false
+      });
       return topstories;
-    }catch(err){
-      throw(err)
+    } catch (err) {
+      throw (err)
     }
   }
 
   const truncate = async () => {
-    try{
-      const topstories = await TopStory.destroy({truncate:true, cascade: false});
+    try {
+      const topstories = await TopStory.destroy({ truncate: true, cascade: false });
       return topstories;
-    }catch(err){
-      throw(err)
+    } catch (err) {
+      throw (err)
     }
   }
 
