@@ -4,30 +4,29 @@ const sequelize = require('../../config/database');
 const tableName = 'stories';
 
 const Story = sequelize.define('stories', {
-  id:{
+  id: {
     type: Sequelize.INTEGER,
     primaryKey: true
   },
   by: {
     type: Sequelize.STRING,
-    unique: true,
   },
   descendants: {
     type: Sequelize.INTEGER
   },
-  kids:{
+  kids: {
     type: Sequelize.INTEGER
   },
-  score:{
+  score: {
     type: Sequelize.INTEGER
   },
-  time:{
+  time: {
     type: Sequelize.INTEGER
   },
-  title:{
+  title: {
     type: Sequelize.STRING
   },
-  type:{
+  type: {
     type: Sequelize.STRING
   },
   url: {
